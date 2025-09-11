@@ -63,37 +63,49 @@
                     Вы находитесь на сайте, предназначенном для продажи товаров.
                 </p>
 
-                                <!-- Контейнер для трех квадратов (карточек товаров) -->
-                <div class="row justify-content-center" id="products-container">
+                <!-- Контейнер для трех (карточек товаров) -->
+                <div class="row h-50 justify-content-center align-items-stretch" id="products-container">
                     <!-- Карточка товара 1 -->
-                    <div class="col-md-6 col-lg-2 mb-4">
+                    <div class="col-md-6 col-lg-3 custom-card-spacing">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-body text-center p-4">
-                                <h5 class="card-title">Товар 1</h5>
-                                <p class="card-text text-success fw-bold">1500 руб.</p>
-                                <button class="btn btn-primary">Купить</button>
+                            <div class="card-header-custom"> <!-- Серая шапка карточки -->
+                                <h5 class="card-title mb-0">Товар 1</h5>
+                            </div>
+
+                            <div class="card-body text-center p-4 d-flex flex-column">
+                                <p class="card-text text-muted mb-3">Краткое описание товара в две-три строки</p> <!-- Краткое описание товара -->
+                                <p class="card-text text-success fw-bold mt-auto">1500 руб.</p>  <!-- mt-auto прижмет цену к низу -->
+                                <button class="btn btn-primary mt-3">Купить</button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Карточка товара 2 -->
-                    <div class="col-md-6 col-lg-2 mb-4">
+                    <div class="col-md-6 col-lg-3 custom-card-spacing">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-body text-center p-4">
-                                <h5 class="card-title">Товар 2</h5>
-                                <p class="card-text text-success fw-bold">2500 руб.</p>
-                                <button class="btn btn-primary">Купить</button>
+                            <div class="card-header-custom">
+                                <h5 class="card-title mb-0">Товар 2</h5>
+                            </div>
+
+                            <div class="card-body text-center p-4 d-flex flex-column">
+                                <p class="card-text text-muted mb-3">Краткое описание товара в две-три строки</p>
+                                <p class="card-text text-success fw-bold mt-auto">1500 руб.</p>
+                                <button class="btn btn-primary mt-3">Купить</button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Карточка товара 3 -->
-                    <div class="col-md-6 col-lg-2 mb-4">
+                    <div class="col-md-6 col-lg-3 custom-card-spacing">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-body text-center p-4">
-                                <h5 class="card-title">Товар 3</h5>
-                                <p class="card-text text-success fw-bold">3500 руб.</p>
-                                <button class="btn btn-primary">Купить</button>
+                            <div class="card-header-custom">
+                                <h5 class="card-title mb-0">Товар 3</h5>
+                            </div>
+
+                            <div class="card-body text-center p-4 d-flex flex-column">
+                                <p class="card-text text-muted mb-3">Краткое описание товара в две-три строки</p>
+                                <p class="card-text text-success fw-bold mt-auto">1500 руб.</p>
+                                <button class="btn btn-primary mt-3">Купить</button>
                             </div>
                         </div>
                     </div>
