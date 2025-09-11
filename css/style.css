@@ -61,3 +61,8 @@ aside.bg-dark {
     border-top-left-radius: 5px !important;  /* Скругление левого верхнего угла */
     border-top-right-radius: 5px !important; /* Скругление правого верхнего угла */
 }
+
+/* Большое расстояние между карточками (30px) */
+.large-card-spacing {
+    margin-bottom: 50px !important;
+    margin: 15px !important; /* 15px со всех сторон = 30px между карточками */}
