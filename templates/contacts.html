@@ -56,19 +56,22 @@
                         <div class="card shadow-sm">
                             <div class="card-body p-4">
                                 <h5 class="card-title mb-4">Обратная связь</h5>
-                                <form>
+                                <form action="/submit-form" method="POST">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Имя</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Ваше имя">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Ваше имя" required>
                                     </div>
+
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Почта</label>
-                                        <input type="email" class="form-control" id="email" placeholder="your@email.com">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="your@email.com" required>
                                     </div>
+
                                     <div class="mb-4">
                                         <label for="message" class="form-label">Сообщение</label>
-                                        <textarea class="form-control" id="message" rows="4" placeholder="Ваше сообщение..."></textarea>
+                                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Ваше сообщение..." required></textarea>
                                     </div>
+
                                     <button type="submit" class="btn btn-primary">Отправить</button>
                                 </form>
                             </div>
