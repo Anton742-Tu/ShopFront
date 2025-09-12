@@ -4,42 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopFront — Контакты</title>
-    <!-- Подключаем Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Подключаем иконки Bootstrap Icons -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <!-- Подключаем наш файл стилей -->
+    <!-- Наши стили -->
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <!-- Обертка для двух колонок -->
-    <div class="container-fluid"> <!-- fluid чтобы растянуться на всю ширину -->
-        <div class="row vh-100"> <!-- vh-100 чтобы занимал всю высоту экрана -->
+    <div class="container-fluid">
+        <div class="row vh-100">
 
-            <!-- Левая колонка (Сайдбар) - 2/12, темная -->
             <aside class="col-2 bg-dark text-white p-4 d-flex flex-column justify-content-between">
-                <!-- Верхняя часть сайдбара -->
                 <div>
-                    <h5 class="text-white small text-uppercase mb-4">Меню</h5>
+                    <h5 class="text-muted small text-uppercase mb-4">Меню</h5>
 
-                    <!-- Навигация -->
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item mb-2">
                             <a href="index.html" class="nav-link text-white-50" id="menu-home">Главная</a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a href="catalog.html" class="nav-link text-white-50" id="menu-catalog">Каталог</a>
+                            <a href="catalog" class="nav-link text-white-50" id="menu-catalog">Каталог</a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a href="category.html" class="nav-link text-white-50" id="menu-category">Категория</a>
+                            <a href="category" class="nav-link text-white-50" id="menu-category">Категория</a>
                         </li>
                         <li class="nav-item">
-                            <a href="contacts.html" class="nav-link text-white-50" id="menu-contacts">Контакты</a>
+                            <a href="contacts" class="nav-link text-white-50" id="menu-contacts">Контакты</a>
                         </li>
                     </ul>
                 </div>
 
-                <!-- Нижняя часть сайдбара - выпадающее меню пользователя -->
                 <div class="dropdown">
                     <button class="btn btn-dark dropdown-toggle d-flex align-items-center w-100 text-start p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="text-white-50">Пользователь</span>
@@ -52,64 +46,51 @@
                 </div>
             </aside>
 
-            <!-- Правая колонка (Основной контент) - 10/12 -->
+            <!-- ОСНОВНОЕ СОДЕРЖИМОЕ СТРАНИЦЫ КОНТАКТОВ -->
             <main class="col-10 p-5">
                 <h1 class="display-5 fw-bold mb-4 text-center">Контакты</h1>
 
                 <div class="row justify-content-center gap-4">
-                    <!-- Левая колонка - форма обратной связи -->
+                    <!-- Форма обратной связи -->
                     <div class="col-lg-3">
                         <div class="card shadow-sm">
                             <div class="card-body p-4">
                                 <h5 class="card-title mb-4">Обратная связь</h5>
-
-                                <!-- Форма -->
                                 <form>
-                                    <!-- Поле "Имя" -->
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Имя</label>
                                         <input type="text" class="form-control" id="name" placeholder="Ваше имя">
                                     </div>
-
-                                    <!-- Поле "Почта" -->
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Почта</label>
                                         <input type="email" class="form-control" id="email" placeholder="your@email.com">
                                     </div>
-
-                                    <!-- Поле "Сообщение" -->
                                     <div class="mb-4">
                                         <label for="message" class="form-label">Сообщение</label>
                                         <textarea class="form-control" id="message" rows="4" placeholder="Ваше сообщение..."></textarea>
                                     </div>
-
-                                    <!-- Кнопка "Отправить" -->
                                     <button type="submit" class="btn btn-primary">Отправить</button>
                                 </form>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Правая колонка - наши контакты -->
+                    <!-- Контактная информация -->
                     <div class="col-lg-3">
                         <div class="ps-lg-3">
                             <h3 class="fw-bold mb-4">Наши контакты</h3>
-
                             <div class="mb-4">
                                 <h5 class="fw-semibold">Адрес:</h5>
                                 <p class="text-muted">г. Москва, ул. Примерная, д. 123</p>
                             </div>
-
                             <div class="mb-4">
                                 <h5 class="fw-semibold">Телефон:</h5>
                                 <p class="text-muted">+7 (999) 123-45-67</p>
                             </div>
-
                             <div class="mb-4">
                                 <h5 class="fw-semibold">Email:</h5>
                                 <p class="text-muted">info@shopfront.ru</p>
                             </div>
-
                             <div>
                                 <h5 class="fw-semibold">Режим работы:</h5>
                                 <p class="text-muted">Пн-Пт: 9:00-18:00<br>Сб-Вс: 10:00-16:00</p>
@@ -121,7 +102,7 @@
         </div>
     </div>
 
-    <!-- Подключаем скрипты -->
+    <!-- Скрипты -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/script.js"></script>
 </body>
