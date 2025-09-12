@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 @app.route("/<path:subpath>", methods=["GET"])
-def contacts_page(_subpath=None):
+def contacts_page(subpath=None):
     """Обрабатывает любой GET-запрос и возвращает страницу контактов"""
     return render_template("contacts.html")
 

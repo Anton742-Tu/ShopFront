@@ -14,9 +14,9 @@ function activateMenuItem() {
     if (currentPage === 'index.html' || currentPage === '') {
         activeLinkId = 'menu-home';
     } else if (currentPage === 'catalog.html') {
-        activeLinkId = 'menu-catalog'; // ID ссылки на Каталог
+        activeLinkId = 'menu-catalog';
     } else if (currentPage === 'category.html') {
-        activeLinkId = 'menu-category'; // Или создай отдельный ID для category
+        activeLinkId = 'menu-category';
     } else if (currentPage === 'contacts.html') {
         activeLinkId = 'menu-contacts';
     }
