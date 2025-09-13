@@ -1,0 +1,68 @@
+/* Стили для сайдбара */
+aside.bg-dark {
+    background-color: #1a1d20 !important; /* Более глубокий темный цвет */
+    border-right: 1px solid #2c3034; /* Разделительная линия */
+}
+
+/* Стили для навигационных ссылок в сайдбаре */
+.nav-pills .nav-link {
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #3563e9; /* Красивая синяя активная ссылка */
+    font-weight: 500;
+}
+
+.nav-pills .nav-link:hover:not(.active) {
+    background-color: #2c3034;
+    color: #fff !important;
+}
+
+/* Стили для активного пункта меню */
+.nav-pills .nav-link.active {
+    background-color: #3563e9 !important;
+    color: #fff !important;
+    font-weight: 500;
+}
+
+/* Убираем стандартные стили Bootstrap для активной ссылки */
+.nav-pills .nav-link.active:hover {
+    background-color: #2b50b7 !important;
+    color: #fff !important;
+}
+
+/* Дополнительные стили для карточек на главной */
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Кастомный отступ вокруг карточек */
+.custom-card-spacing {
+    margin: 20px !important; /* 20px со всех сторон = 20px между карточками */
+}
+
+.card-header-custom {
+    background-color: #6c757d !important;
+    color: white !important;
+    border-bottom: 1px solid #5a6268 !important;
+    padding: 1rem !important;
+    text-align: center !important;
+    border-top-left-radius: 5px !important;  /* Скругление левого верхнего угла */
+    border-top-right-radius: 5px !important; /* Скругление правого верхнего угла */
+}
+
+/* Большое расстояние между карточками (30px) */
+.large-card-spacing {
+    margin-bottom: 50px !important;
+    margin: 15px !important; /* 15px со всех сторон = 30px между карточками */}
