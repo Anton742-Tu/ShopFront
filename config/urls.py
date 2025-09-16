@@ -1,11 +1,12 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
+
 from catalog.views import (
-    home_page,
-    contacts_page,
-    handle_form_submission,
     catalog_page,
     category_page,
+    contacts_page,
+    handle_form_submission,
+    home_page,
 )
 
 urlpatterns = [
