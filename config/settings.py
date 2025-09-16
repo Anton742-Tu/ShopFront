@@ -120,6 +120,10 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 USE_TZ = True
 
+# Media
+MEDIA_URL = '/media/'  # URL для доступа к медиа-файлам
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Папка для хранения файлов
+
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
