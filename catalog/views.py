@@ -1,14 +1,35 @@
 from django.shortcuts import render
+from .models import Product, Contact
 
 
 def home_page(request):
-    """Домашняя страница"""
-    return render(request, "index.html")
+    """Домашняя страница с последними 5 продуктами"""
+    # Получаем последние 5 созданных продуктов
+    latest_products = Product.objects.order_by('-created_at')[:5]
+
+    # Выводим в консоль
+    print("\n" + "=" * 50)
+    print("ПОСЛЕДНИЕ 5 ПРОДУКТОВ:")
+    for product in latest_products:
+        print(f"- {product.name} ({product.created_at}) - {product.price} руб.")
+    print("=" * 50 + "\n")
+
+    # Передаем в шаблон
+    context = {
+        'latest_products': latest_products
+    }
+    return render(request, 'index.html', context)
 
 
 def contacts_page(request):
     """Страница контактов"""
-    return render(request, "contacts.html")
+    # Получаем все контактные данные
+    contacts = Contact.objects.all()
+
+    context = {
+        'contacts': contacts
+    }
+    return render(request, 'contacts.html', context)
 
 
 def handle_form_submission(request):

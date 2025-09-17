@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Контакты{% endblock %}
 
@@ -7,12 +8,12 @@
 
 <div class="row justify-content-center gap-4">
     <!-- Форма обратной связи -->
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <div class="card shadow-sm">
             <div class="card-body p-4">
                 <h5 class="card-title mb-4">Обратная связь</h5>
                 <form action="{% url 'submit_form' %}" method="POST">
-                    {% csrf_token %}  <!-- Важно! CSRF токен для Django -->
+                    {% csrf_token %}
                     <div class="mb-3">
                         <label for="name" class="form-label">Имя</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Ваше имя" required>
@@ -26,8 +27,7 @@
                         <textarea class="form-control" id="message" name="message" rows="4" placeholder="Ваше сообщение..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Отправить</button>
-                    
-                    <!-- Сообщение об успешной отправке -->
+
                     {% if success %}
                     <div class="alert alert-success mt-3" role="alert">
                         Форма успешно отправлена! Данные выведены в консоль.
@@ -38,26 +38,31 @@
         </div>
     </div>
 
-    <!-- Контактная информация -->
-    <div class="col-lg-3">
+    <!-- Контактная информация из базы данных -->
+    <div class="col-lg-4">
         <div class="ps-lg-3">
             <h3 class="fw-bold mb-4">Наши контакты</h3>
-            <div class="mb-4">
-                <h5 class="fw-semibold">Адрес:</h5>
-                <p class="text-muted">г. Москва, ул. Примерная, д. 123</p>
-            </div>
-            <div class="mb-4">
-                <h5 class="fw-semibold">Телефон:</h5>
-                <p class="text-muted">+7 (999) 123-45-67</p>
-            </div>
-            <div class="mb-4">
-                <h5 class="fw-semibold">Email:</h5>
-                <p class="text-muted">info@shopfront.ru</p>
-            </div>
-            <div>
-                <h5 class="fw-semibold">Режим работы:</h5>
-                <p class="text-muted">Пн-Пт: 9:00-18:00<br>Сб-Вс: 10:00-16:00</p>
-            </div>
+
+            {% for contact in contacts %}
+                {% if contact.is_active %}
+                <div class="mb-4">
+                    <h5 class="fw-semibold">
+                        {% if contact.icon %}
+                        <i class="bi {{ contact.icon }} me-2"></i>
+                        {% endif %}
+                        {{ contact.name }}:
+                    </h5>
+                    <p class="text-muted">{{ contact.value }}</p>
+                    {% if contact.description %}
+                    <p class="text-muted small">{{ contact.description }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% empty %}
+                <div class="alert alert-info">
+                    Контактная информация пока не добавлена.
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>

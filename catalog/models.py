@@ -75,3 +75,52 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.price} руб."
+
+
+class Contact(models.Model):
+    """Модель для хранения контактных данных"""
+    name = models.CharField(
+        max_length=100,
+        verbose_name='Название пункта',
+        help_text='Например: Телефон, Email, Адрес'
+    )
+    value = models.CharField(
+        max_length=200,
+        verbose_name='Значение',
+        help_text='Например: +7 (999) 123-45-67'
+    )
+    description = models.TextField(
+        verbose_name='Описание',
+        blank=True,
+        null=True,
+        help_text='Дополнительное описание'
+    )
+    icon = models.CharField(
+        max_length=50,
+        verbose_name='Иконка',
+        blank=True,
+        null=True,
+        help_text='Класс иконки (например: bi-telephone)'
+    )
+    order = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Порядок отображения',
+        help_text='Чем меньше число, тем выше в списке'
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name='Активно',
+        help_text='Показывать на сайте'
+    )
+    created_at = models.DateTimeField(
+        default=timezone.now,
+        verbose_name='Дата создания'
+    )
+
+    class Meta:
+        verbose_name = 'Контакт'
+        verbose_name_plural = 'Контакты'
+        ordering = ['order', 'created_at']
+
+    def __str__(self):
+        return f"{self.name}: {self.value}"
