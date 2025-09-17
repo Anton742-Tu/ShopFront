@@ -8,7 +8,7 @@
 
 <div class="row justify-content-center gap-4">
     <!-- Форма обратной связи -->
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <div class="card shadow-sm">
             <div class="card-body p-4">
                 <h5 class="card-title mb-4">Обратная связь</h5>
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Контактная информация из базы данных -->
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <div class="ps-lg-3">
             <h3 class="fw-bold mb-4">Наши контакты</h3>
 
@@ -50,7 +50,7 @@
                         {% if contact.icon %}
                         <i class="bi {{ contact.icon }} me-2"></i>
                         {% endif %}
-                        {{ contact.name }}:
+                        {{ contact.get_contact_type_display }}:
                     </h5>
                     <p class="text-muted">{{ contact.value }}</p>
                     {% if contact.description %}

@@ -34,7 +34,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'value', 'order', 'is_active')
+    list_display = ('contact_type', 'value', 'order', 'is_active')
     list_editable = ('order', 'is_active')
-    list_filter = ('is_active',)
-    search_fields = ('name', 'value')
+    list_filter = ('contact_type', 'is_active')
+    search_fields = ('value', 'description')

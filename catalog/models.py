@@ -79,28 +79,39 @@ class Product(models.Model):
 
 class Contact(models.Model):
     """Модель для хранения контактных данных"""
-    name = models.CharField(
-        max_length=100,
-        verbose_name='Название пункта',
-        help_text='Например: Телефон, Email, Адрес'
+
+    # Типы контактов
+    CONTACT_TYPES = [
+        ('phone', 'Телефон'),
+        ('email', 'Email'),
+        ('address', 'Адрес'),
+        ('schedule', 'Режим работы'),
+        ('other', 'Другое'),
+    ]
+
+    contact_type = models.CharField(
+        max_length=20,
+        choices=CONTACT_TYPES,
+        verbose_name='Тип контакта',
+        help_text='Выберите тип контактной информации'
     )
     value = models.CharField(
         max_length=200,
         verbose_name='Значение',
-        help_text='Например: +7 (999) 123-45-67'
+        help_text='Например: +7 (999) 123-45-67 или info@example.com'
     )
     description = models.TextField(
         verbose_name='Описание',
         blank=True,
         null=True,
-        help_text='Дополнительное описание'
+        help_text='Дополнительное описание (необязательно)'
     )
     icon = models.CharField(
         max_length=50,
         verbose_name='Иконка',
         blank=True,
         null=True,
-        help_text='Класс иконки (например: bi-telephone)'
+        help_text='Класс иконки Bootstrap Icons (например: bi-telephone)'
     )
     order = models.PositiveIntegerField(
         default=0,
@@ -123,4 +134,4 @@ class Contact(models.Model):
         ordering = ['order', 'created_at']
 
     def __str__(self):
-        return f"{self.name}: {self.value}"
+        return f"{self.get_contact_type_display()}: {self.value}"
