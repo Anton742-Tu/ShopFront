@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Product, Contact
+
+from .models import Contact, Product
 
 
 def home_page(request):
