@@ -1,0 +1,62 @@
+<!-- Папка для включений -->
+{% load static %}
+
+<aside class="col-2 bg-dark text-white p-4 d-flex flex-column justify-content-between">
+
+    <!-- Верхняя часть сайдбара -->
+    <div>
+        <!-- Логотип -->
+        <div class="text-center mb-4">
+            <h4 class="text-white mb-0">🛍️ ShopFront</h4>
+            <small class="text-muted">Интернет-магазин</small>
+        </div>
+
+        <!-- Разделитель -->
+        <hr class="text-muted my-4">
+
+        <!-- Навигационное меню -->
+        <h5 class="text-muted small text-uppercase mb-3">Меню</h5>
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item mb-2">
+                <a href="{% url 'home' %}" class="nav-link text-white-50 {% if request.path == '/' %}active{% endif %}" id="menu-home">
+                    <i class="bi bi-house me-2"></i>Главная
+                </a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="{% url 'catalog' %}" class="nav-link text-white-50 {% if request.path == '/catalog/' %}active{% endif %}" id="menu-catalog">
+                    <i class="bi bi-grid me-2"></i>Каталог
+                </a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="{% url 'category' %}" class="nav-link text-white-50 {% if request.path == '/category/' %}active{% endif %}" id="menu-category">
+                    <i class="bi bi-tags me-2"></i>Категории
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'contacts' %}" class="nav-link text-white-50 {% if request.path == '/contacts/' %}active{% endif %}" id="menu-contacts">
+                    <i class="bi bi-telephone me-2"></i>Контакты
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Нижняя часть сайдбара -->
+    <div>
+        <!-- Разделитель -->
+        <hr class="text-muted my-4">
+
+        <!-- Пользователь -->
+        <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle d-flex align-items-center w-100 text-start p-0" type="button" data-bs-toggle="dropdown">
+                <i class="bi bi-person-circle me-2"></i>
+                <span class="text-white-50">Пользователь</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Профиль</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-heart me-2"></i>Избранное</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Выход</a></li>
+            </ul>
+        </div>
+    </div>
+</aside>
