@@ -1,17 +1,21 @@
-/* Стили для сайдбара */
+/* ===== САЙДБАР ===== */
 aside.bg-dark {
-    background-color: #1a1d20 !important; /* Более глубокий темный цвет */
-    border-right: 1px solid #2c3034; /* Разделительная линия */
+    background-color: #1a1d20;
+    border-right: 1px solid #2c3034;
 }
 
-/* Стили для навигационных ссылок в сайдбаре */
+/* ===== АКТИВНЫЕ ССЫЛКИ МЕНЮ ===== */
 .nav-pills .nav-link {
     border-radius: 6px;
     padding: 0.6rem 1rem;
+    transition: all 0.3s ease;
+    margin: 2px 0;
+    color: #adb5bd !important;
 }
 
 .nav-pills .nav-link.active {
-    background-color: #3563e9; /* Красивая синяя активная ссылка */
+    background-color: #3563e9 !important;
+    color: #fff !important;
     font-weight: 500;
 }
 
@@ -20,20 +24,20 @@ aside.bg-dark {
     color: #fff !important;
 }
 
-/* Стили для активного пункта меню */
-.nav-pills .nav-link.active {
-    background-color: #3563e9 !important;
-    color: #fff !important;
-    font-weight: 500;
-}
-
-/* Убираем стандартные стили Bootstrap для активной ссылки */
-.nav-pills .nav-link.active:hover {
-    background-color: #2b50b7 !important;
+/* Иконки */
+.nav-pills .nav-link.active i {
     color: #fff !important;
 }
 
-/* Дополнительные стили для карточек на главной */
+.nav-pills .nav-link:not(.active) i {
+    color: #adb5bd !important;
+}
+
+.nav-pills .nav-link:hover i {
+    color: #fff !important;
+}
+
+/* ===== КАРТОЧКИ ===== */
 .card {
     transition: transform 0.2s ease-in-out;
 }
@@ -47,27 +51,16 @@ aside.bg-dark {
     flex-direction: column;
 }
 
-/* Кастомный отступ вокруг карточек */
-.custom-card-spacing {
-    margin: 20px !important; /* 20px со всех сторон = 20px между карточками */
-}
-
 .card-header-custom {
-    background-color: #6c757d !important;
-    color: white !important;
-    border-bottom: 1px solid #5a6268 !important;
-    padding: 1rem !important;
-    text-align: center !important;
-    border-top-left-radius: 5px !important;  /* Скругление левого верхнего угла */
-    border-top-right-radius: 5px !important; /* Скругление правого верхнего угла */
+    background-color: #6c757d;
+    color: white;
+    border-bottom: 1px solid #5a6268;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
 }
 
-/* Большое расстояние между карточками (30px) */
-.large-card-spacing {
-    margin-bottom: 50px !important;
-    margin: 15px !important; /* 15px со всех сторон = 30px между карточками */}
-
-/* Стили для страницы контактов */
+/* ===== КОНТАКТЫ ===== */
 .contact-item {
     transition: transform 0.2s ease;
     border-left: 4px solid #0d6efd;
@@ -98,11 +91,7 @@ aside.bg-dark {
     justify-content: center;
 }
 
-.contact-list .alert {
-    border-left: 4px solid #0dcaf0;
-}
-
-/* Стили для пагинации */
+/* ===== ПАГИНАЦИЯ ===== */
 .pagination .page-link {
     color: #0d6efd;
     border: 1px solid #dee2e6;

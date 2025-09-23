@@ -1,5 +1,4 @@
-{% load static %}
-
+<!-- templates/includes/sidebar.html -->
 <aside class="col-2 bg-dark text-white p-4 d-flex flex-column justify-content-between">
 
     <!-- Верхняя часть сайдбара -->
@@ -17,28 +16,28 @@
         <h5 class="text-white small text-uppercase mb-3">Меню</h5>
         <ul class="nav nav-pills flex-column">
             <li class="nav-item mb-2">
-                <a href="{% url 'home' %}" class="nav-link text-white-50 {% if request.path == '/' %}active{% endif %}" id="menu-home">
+                <a href="{% url 'home' %}" class="nav-link {% if request.path == '/' %}active{% else %}text-white-50{% endif %}">
                     <i class="bi bi-house me-2"></i>Главная
                 </a>
             </li>
             <li class="nav-item mb-2">
-                <a href="{% url 'catalog' %}" class="nav-link text-white-50 {% if request.path == '/catalog/' %}active{% endif %}" id="menu-catalog">
+                <a href="{% url 'catalog' %}" class="nav-link {% if request.path == '/catalog/' %}active{% else %}text-white-50{% endif %}">
                     <i class="bi bi-grid me-2"></i>Каталог
                 </a>
             </li>
             <li class="nav-item mb-2">
-                <a href="{% url 'category' %}" class="nav-link text-white-50 {% if request.path == '/category/' %}active{% endif %}" id="menu-category">
+                <a href="{% url 'add_product' %}" class="nav-link {% if request.path == '/product/add/' %}active{% else %}text-white-50{% endif %}">
+                    <i class="bi bi-plus-circle me-2"></i>Добавить товар
+                </a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="{% url 'category' %}" class="nav-link {% if request.path == '/category/' %}active{% else %}text-white-50{% endif %}">
                     <i class="bi bi-tags me-2"></i>Категории
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'contacts' %}" class="nav-link text-white-50 {% if request.path == '/contacts/' %}active{% endif %}" id="menu-contacts">
+                <a href="{% url 'contacts' %}" class="nav-link {% if request.path == '/contacts/' %}active{% else %}text-white-50{% endif %}">
                     <i class="bi bi-telephone me-2"></i>Контакты
-                </a>
-            </li>
-            <li class="nav-item mb-2">
-                <a href="{% url 'add_product' %}" class="nav-link text-white-50 {% if request.path == '/product/add/' %}active{% endif %}" id="menu-add-product">
-                    <i class="bi bi-plus-circle me-2"></i>Добавить товар
                 </a>
             </li>
         </ul>
@@ -46,10 +45,7 @@
 
     <!-- Нижняя часть сайдбара -->
     <div>
-        <!-- Разделитель -->
         <hr class="text-muted my-4">
-
-        <!-- Пользователь -->
         <div class="dropdown">
             <button class="btn btn-dark dropdown-toggle d-flex align-items-center w-100 text-start p-0" type="button" data-bs-toggle="dropdown">
                 <i class="bi bi-person-circle me-2"></i>
