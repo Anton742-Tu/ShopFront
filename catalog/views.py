@@ -1,11 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-from .models import Contact, Product
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import get_object_or_404, redirect, render
+
 from .forms import ProductForm
+from .models import Contact, Product
 
 
 def add_product(request):
@@ -15,7 +13,7 @@ def add_product(request):
         if form.is_valid():
             product = form.save()
             messages.success(request, f'Товар "{product.name}" успешно добавлен!')
-            return redirect('product_detail', product_id=product.id)
+            return redirect('product_detail', pk=product.id)
         else:
             messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
     else:
@@ -31,11 +29,11 @@ def add_product(request):
 def home_page(request):
     """Главная страница с пагинацией"""
     # Получаем все товары (или можно оставить только последние)
-    all_products = Product.objects.order_by('-created_at')
+    all_products = Product.objects.order_by("-created_at")
 
     # Настраиваем пагинацию - 6 товаров на страницу
     paginator = Paginator(all_products, 6)
-    page_number = request.GET.get('page', 1)
+    page_number = request.GET.get("page", 1)
 
     try:
         products = paginator.page(page_number)
@@ -44,11 +42,8 @@ def home_page(request):
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
 
-    context = {
-        'products': products,
-        'page_title': 'Новинки'
-    }
-    return render(request, 'index.html', context)
+    context = {"products": products, "page_title": "Новинки"}
+    return render(request, "index.html", context)
 
 
 def contacts_page(request):
@@ -59,23 +54,22 @@ def contacts_page(request):
     if main_contact and main_contact.person_name:
         # Режим одного человека
         contacts = Contact.objects.filter(
-            person_name=main_contact.person_name,
-            is_active=True
-        ).order_by('order')
+            person_name=main_contact.person_name, is_active=True
+        ).order_by("order")
         page_title = main_contact.person_name
         show_person = True
     else:
         # Режим всех контактов
-        contacts = Contact.objects.filter(is_active=True).order_by('order')
+        contacts = Contact.objects.filter(is_active=True).order_by("order")
         page_title = "Наши контакты"
         show_person = False
 
     context = {
-        'contacts': contacts,
-        'page_title': page_title,
-        'show_person': show_person
+        "contacts": contacts,
+        "page_title": page_title,
+        "show_person": show_person,
     }
-    return render(request, 'contacts.html', context)
+    return render(request, "contacts.html", context)
 
 
 def handle_form_submission(request):
@@ -103,11 +97,11 @@ def catalog_page(request):
     all_products = Product.objects.all()
 
     context = {
-        'products': all_products,
-        'page_title': 'Все товары',
-        'show_filters': True  # Флаг для показа фильтров в шаблоне
+        "products": all_products,
+        "page_title": "Все товары",
+        "show_filters": True,  # Флаг для показа фильтров в шаблоне
     }
-    return render(request, 'catalog.html', context)
+    return render(request, "catalog.html", context)
 
 
 def category_page(request):
@@ -115,12 +109,12 @@ def category_page(request):
     return render(request, "category.html")
 
 
-def product_detail(request, pk):
+def product_detail(request, pk=None, product_id=None):
     """Страница с подробной информацией о товаре"""
-    product = get_object_or_404(Product, pk=pk)
+    # Определяем ID товара
+    product_id = product_id or pk
 
-    # Выводим в консоль для отладки
-    print(f"\nПросмотр товара: {product.name} (ID: {product.id})")
+    product = get_object_or_404(Product, id=product_id)
 
     context = {
         'product': product
