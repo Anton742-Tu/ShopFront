@@ -1,57 +1,33 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Главная{% endblock %}
+{% block title %}Главная - ShopFront{% endblock %}
+
+{% block page_title %}
+<h1 class="display-5 text-center fw-bold mb-2">Главная</h1>
+{% endblock %}
 
 {% block content %}
-<h1 class="display-5 fw-bold mb-4 text-center">Главная</h1>
-<p class="lead text-center mb-5">Вы находитесь на сайте, предназначенном для продажи товаров.</p>
+<!-- Герой-секция -->
+<div class="hero-section bg-light rounded p-5 mb-5 text-center">
+    <h2 class="mb-3">🛍️ Добро пожаловать в ShopFront!</h2>
+</div>
 
-<!-- Сетка товаров -->
-<div class="row justify-content-center align-items-stretch">
-    <!-- Карточка товара 1 -->
-    <div class="col-md-6 col-lg-3 custom-card-spacing">
-        <div class="card h-100 shadow-sm">
-            <div class="card-header-custom"> <!-- Серая шапка карточки -->
-                    <h5 class="card-title mb-0">Товар 1</h5>
-            </div>
-
-            <div class="card-body text-center p-4 d-flex flex-column">
-                <p class="card-text text-muted mb-3">Краткое описание товара в две-три строки</p> <!-- Краткое описание товара -->
-                <p class="card-text text-success fw-bold mt-auto">1500 руб.</p>  <!-- mt-auto прижмет цену к низу -->
-                <button class="btn btn-primary mt-3">Купить</button>
+<!-- Новинки -->
+<div class="mb-5">
+    <h3 class="mb-4">🆕 Новинки</h3>
+    <div class="row gap-4 justify-content-center">
+        {% for product in products %}
+        <div class="col-lg-3 col-md-6 mb-4">
+            {% include 'includes/product_card.html' %}
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                Пока нет товаров. Скоро появятся новинки!
             </div>
         </div>
-    </div>
-
-    <!-- Карточка товара 2 -->
-    <div class="col-md-6 col-lg-3 custom-card-spacing">
-        <div class="card h-100 shadow-sm">
-            <div class="card-header-custom">
-                <h5 class="card-title mb-0">Товар 2</h5>
-            </div>
-
-            <div class="card-body text-center p-4 d-flex flex-column">
-                <p class="card-text text-muted mb-3">Краткое описание товара в две-три строки</p>
-                <p class="card-text text-success fw-bold mt-auto">1500 руб.</p>
-                <button class="btn btn-primary mt-3">Купить</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Карточка товара 3 -->
-    <div class="col-md-6 col-lg-3 custom-card-spacing">
-        <div class="card h-100 shadow-sm">
-            <div class="card-header-custom">
-                <h5 class="card-title mb-0">Товар 3</h5>
-            </div>
-
-            <div class="card-body text-center p-4 d-flex flex-column">
-                <p class="card-text text-muted mb-3">Краткое описание товара в две-три строки</p>
-                <p class="card-text text-success fw-bold mt-auto">1500 руб.</p>
-                <button class="btn btn-primary mt-3">Купить</button>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

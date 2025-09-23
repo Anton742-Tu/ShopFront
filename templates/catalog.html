@@ -1,91 +1,58 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Каталог{% endblock %}
+{% block title %}Каталог товаров - ShopFront{% endblock %}
+
+{% block page_title %}
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="display-5 fw-bold mb-4 text-center">Каталог товаров</h1>
+    </div>
+    <span class="badge bg-primary fs-6">Всего: {{ products.count }} товаров</span>
+</div>
+{% endblock %}
 
 {% block content %}
-<h1 class="display-5 fw-bold mb-4 text-center">Каталог</h1>
 
-<!-- Контейнер для четырёх квадратов (каталог товаров) -->
-<div class="row justify-content-center" id="products-container">
-
-    <!-- Карточка 1 -->
-    <div class="col-lg-4 large-card-spacing">
+<!-- Сетка товаров -->
+<div class="row">
+    {% for product in products %}
+    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
         <div class="card h-100 shadow-sm">
-            <!-- Большая серая шапка -->
-            <div class="p-5 text-center rounded-top" style="background-color: #6c757d; min-height: 200px;">
-                <h5 class="card-title text-white">Эскиз</h5>
+            <div class="p-3 text-center" style="background-color: #6c757d; min-height: 100px;">
+                <h6 class="card-title text-white">{{ product.name }}</h6>
             </div>
 
-            <div class="card-body p-3 d-flex flex-column">
-                <p class="card-text text-muted mb-2">Товары для повседневного использования</p> <!-- Описание товара -->
+            <div class="card-body d-flex flex-column">
+                <p class="card-text text-muted small mb-2">
+                    {{ product.description|truncatechars:80|default:"Описание отсутствует" }}
+                </p>
 
-                <!-- Две кнопки в левом нижнем углу -->
-                <div class="d-flex gap-2 mt-3"> <!-- gap-2 - расстояние между кнопками -->
-                    <button class="btn btn-sm btn-outline-secondary">Подробнее</button>
-                    <button class="btn btn-sm btn-outline-primary">В избранное</button>
+                {% if product.category %}
+                <span class="badge bg-secondary mb-2 align-self-start">{{ product.category.name }}</span>
+                {% endif %}
+
+                <div class="mt-auto">
+                    <p class="card-text text-success fw-bold">{{ product.price }} руб.</p>
+
+                    {% if product.id %}
+                    <div class="d-grid gap-1">
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary btn-sm">
+                            Подробнее
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Карточка 2 -->
-    <div class="col-lg-4 large-card-spacing">
-        <div class="card h-100 shadow-sm">
-            <!-- Большая серая шапка -->
-            <div class="p-5 text-center rounded-top" style="background-color: #6c757d; min-height: 200px;">
-                <h5 class="card-title text-white">Эскиз</h5>
-            </div>
-
-            <div class="card-body p-3 d-flex flex-column">
-                <p class="card-text text-muted mb-2">Товары для повседневного использования</p> <!-- Описание товара -->
-
-                <!-- Две кнопки в левом нижнем углу -->
-                <div class="d-flex gap-2 mt-3"> <!-- gap-2 - расстояние между кнопками -->
-                    <button class="btn btn-sm btn-outline-secondary">Подробнее</button>
-                    <button class="btn btn-sm btn-outline-primary">В избранное</button>
-                </div>
-            </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            <h4>😔 Товары не найдены</h4>
+            <p>Товары скоро будут добавлены в каталог.</p>
         </div>
     </div>
-
-    <!-- Карточка 3 -->
-    <div class="col-lg-4 large-card-spacing">
-        <div class="card h-100 shadow-sm">
-            <!-- Большая серая шапка -->
-            <div class="p-5 text-center rounded-top" style="background-color: #6c757d; min-height: 200px;">
-                <h5 class="card-title text-white">Эскиз</h5>
-            </div>
-
-            <div class="card-body p-3 d-flex flex-column">
-                <p class="card-text text-muted mb-2">Товары для повседневного использования</p> <!-- Описание товара -->
-
-                <!-- Две кнопки в левом нижнем углу -->
-                <div class="d-flex gap-2 mt-3"> <!-- gap-2 - расстояние между кнопками -->
-                    <button class="btn btn-sm btn-outline-secondary">Подробнее</button>
-                    <button class="btn btn-sm btn-outline-primary">В избранное</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Карточка 4 -->
-    <div class="col-lg-4 large-card-spacing">
-        <div class="card h-100 shadow-sm">
-            <!-- Большая серая шапка -->
-            <div class="p-5 text-center rounded-top" style="background-color: #6c757d; min-height: 200px;">
-                <h5 class="card-title text-white">Эскиз</h5>
-            </div>
-
-            <div class="card-body p-3 d-flex flex-column">
-                <p class="card-text text-muted mb-2">Товары для повседневного использования</p> <!-- Описание товара -->
-
-                <!-- Две кнопки в левом нижнем углу -->
-                <div class="d-flex gap-2 mt-3"> <!-- gap-2 - расстояние между кнопками -->
-                    <button class="btn btn-sm btn-outline-secondary">Подробнее</button>
-                    <button class="btn btn-sm btn-outline-primary">В избранное</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}
