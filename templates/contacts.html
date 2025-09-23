@@ -39,30 +39,58 @@
     </div>
 
     <!-- Контактная информация из базы данных -->
-    <div class="col-lg-3">
+    <div class="col-lg-6">
         <div class="ps-lg-3">
-            <h3 class="fw-bold mb-4">Наши контакты</h3>
+            <h3 class="fw-bold mb-4 text-primary">{{ page_title }}</h3>
 
-            {% for contact in contacts %}
-                {% if contact.is_active %}
-                <div class="mb-4">
-                    <h5 class="fw-semibold">
-                        {% if contact.icon %}
-                        <i class="bi {{ contact.icon }} me-2"></i>
-                        {% endif %}
-                        {{ contact.get_contact_type_display }}:
-                    </h5>
-                    <p class="text-muted">{{ contact.value }}</p>
-                    {% if contact.description %}
-                    <p class="text-muted small">{{ contact.description }}</p>
-                    {% endif %}
+            {% if show_person %}
+            <div class="text-center mb-4">
+                <div class="contact-avatar mb-3">
+                    <i class="bi bi-person-circle display-1 text-primary"></i>
                 </div>
-                {% endif %}
-            {% empty %}
+                <p class="text-muted">Ваш контактный специалист</p>
+            </div>
+            {% endif %}
+
+            <div class="contact-list">
+                {% for contact in contacts %}
+                <div class="contact-item card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="contact-icon me-3">
+                                <i class="bi
+                                    {% if contact.icon %}{{ contact.icon }}
+                                    {% elif contact.contact_type == 'phone' %}bi-telephone
+                                    {% elif contact.contact_type == 'email' %}bi-envelope
+                                    {% elif contact.contact_type == 'whatsapp' %}bi-whatsapp
+                                    {% elif contact.contact_type == 'telegram' %}bi-telegram
+                                    {% else %}bi-info-circle{% endif %}
+                                    fs-5 text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-semibold mb-1 text-dark">
+                                    {% if contact.contact_type == 'phone' %}Телефон
+                                    {% elif contact.contact_type == 'email' %}Email
+                                    {% elif contact.contact_type == 'whatsapp' %}WhatsApp
+                                    {% elif contact.contact_type == 'telegram' %}Telegram
+                                    {% elif contact.contact_type == 'address' %}Адрес
+                                    {% else %}{{ contact.contact_type }}{% endif %}
+                                </h6>
+                                <p class="mb-1 text-dark fs-6">{{ contact.value }}</p>
+                                {% if contact.description %}
+                                <p class="text-muted small mb-0">{{ contact.description }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
                 <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-2"></i>
                     Контактная информация пока не добавлена.
                 </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

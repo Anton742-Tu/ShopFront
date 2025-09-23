@@ -33,9 +33,22 @@ class ProductAdmin(admin.ModelAdmin):
         }),
     )
 
+
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('contact_type', 'value', 'order', 'is_active')
-    list_editable = ('order', 'is_active')
-    list_filter = ('contact_type', 'is_active')
-    search_fields = ('value', 'description')
+    list_display = ('person_name', 'get_contact_type_display', 'value', 'is_main_contact', 'order', 'is_active')
+    list_editable = ('is_main_contact', 'order', 'is_active')
+    list_filter = ('contact_type', 'is_active', 'is_main_contact')
+    search_fields = ('person_name', 'value', 'description')
+
+    fieldsets = (
+        ('Контактное лицо', {
+            'fields': ('person_name', 'is_main_contact')
+        }),
+        ('Контактная информация', {
+            'fields': ('contact_type', 'value', 'description')
+        }),
+        ('Дополнительно', {
+            'fields': ('icon', 'order', 'is_active')
+        }),
+    )
