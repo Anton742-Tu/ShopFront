@@ -78,60 +78,33 @@ class Product(models.Model):
 
 
 class Contact(models.Model):
-    """Модель для хранения контактных данных"""
-
-    # Типы контактов
     CONTACT_TYPES = [
         ('phone', 'Телефон'),
         ('email', 'Email'),
         ('address', 'Адрес'),
-        ('schedule', 'Режим работы'),
-        ('other', 'Другое'),
+        ('whatsapp', 'WhatsApp'),
+        ('telegram', 'Telegram'),
+        ('vk', 'VK'),
     ]
 
-    contact_type = models.CharField(
-        max_length=20,
-        choices=CONTACT_TYPES,
-        verbose_name='Тип контакта',
-        help_text='Выберите тип контактной информации'
-    )
-    value = models.CharField(
-        max_length=200,
-        verbose_name='Значение',
-        help_text='Например: +7 (999) 123-45-67 или info@example.com'
-    )
-    description = models.TextField(
-        verbose_name='Описание',
-        blank=True,
-        null=True,
-        help_text='Дополнительное описание (необязательно)'
-    )
-    icon = models.CharField(
-        max_length=50,
-        verbose_name='Иконка',
-        blank=True,
-        null=True,
-        help_text='Класс иконки Bootstrap Icons (например: bi-telephone)'
-    )
-    order = models.PositiveIntegerField(
-        default=0,
-        verbose_name='Порядок отображения',
-        help_text='Чем меньше число, тем выше в списке'
-    )
-    is_active = models.BooleanField(
-        default=True,
-        verbose_name='Активно',
-        help_text='Показывать на сайте'
-    )
-    created_at = models.DateTimeField(
-        default=timezone.now,
-        verbose_name='Дата создания'
-    )
+    # Существующие поля
+    contact_type = models.CharField('Тип контакта', max_length=20, choices=CONTACT_TYPES)
+    value = models.CharField('Значение', max_length=200)
+    description = models.TextField('Описание', blank=True, default='')  # ← Добавил default=''
+    icon = models.CharField('Иконка', max_length=50, blank=True, default='')
+    is_active = models.BooleanField('Активный', default=True)
+    order = models.IntegerField('Порядок', default=0)
+
+    # Новые поля
+    person_name = models.CharField('Имя человека', max_length=100, blank=True, default='')
+    is_main_contact = models.BooleanField('Основной контакт для страницы', default=False)
 
     class Meta:
+        ordering = ['-is_main_contact', 'order', 'contact_type']
         verbose_name = 'Контакт'
         verbose_name_plural = 'Контакты'
-        ordering = ['order', 'created_at']
 
     def __str__(self):
-        return f"{self.get_contact_type_display()}: {self.value}"
+        if self.person_name:
+            return f"{self.person_name} - {self.get_contact_type_display()}"
+        return f"{self.get_contact_type_display()} - {self.value}"
