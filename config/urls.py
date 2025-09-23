@@ -1,11 +1,14 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
+
 from catalog.views import (
-    home_page,
-    contacts_page,
-    handle_form_submission,
     catalog_page,
     category_page,
+    contacts_page,
+    handle_form_submission,
+    home_page,
 )
 
 urlpatterns = [
@@ -22,3 +25,7 @@ urlpatterns = [
     path("category/", category_page, name="category"),
     path("", include("catalog.urls")),  # Подключаем URLs приложения catalog
 ]
+
+# Только для режима разработки!
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

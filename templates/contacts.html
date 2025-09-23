@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Контакты{% endblock %}
 
@@ -12,7 +13,7 @@
             <div class="card-body p-4">
                 <h5 class="card-title mb-4">Обратная связь</h5>
                 <form action="{% url 'submit_form' %}" method="POST">
-                    {% csrf_token %}  <!-- Важно! CSRF токен для Django -->
+                    {% csrf_token %}
                     <div class="mb-3">
                         <label for="name" class="form-label">Имя</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Ваше имя" required>
@@ -26,8 +27,7 @@
                         <textarea class="form-control" id="message" name="message" rows="4" placeholder="Ваше сообщение..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Отправить</button>
-                    
-                    <!-- Сообщение об успешной отправке -->
+
                     {% if success %}
                     <div class="alert alert-success mt-3" role="alert">
                         Форма успешно отправлена! Данные выведены в консоль.
@@ -38,25 +38,58 @@
         </div>
     </div>
 
-    <!-- Контактная информация -->
-    <div class="col-lg-3">
+    <!-- Контактная информация из базы данных -->
+    <div class="col-lg-6">
         <div class="ps-lg-3">
-            <h3 class="fw-bold mb-4">Наши контакты</h3>
-            <div class="mb-4">
-                <h5 class="fw-semibold">Адрес:</h5>
-                <p class="text-muted">г. Москва, ул. Примерная, д. 123</p>
+            <h3 class="fw-bold mb-4 text-primary">{{ page_title }}</h3>
+
+            {% if show_person %}
+            <div class="text-center mb-4">
+                <div class="contact-avatar mb-3">
+                    <i class="bi bi-person-circle display-1 text-primary"></i>
+                </div>
+                <p class="text-muted">Ваш контактный специалист</p>
             </div>
-            <div class="mb-4">
-                <h5 class="fw-semibold">Телефон:</h5>
-                <p class="text-muted">+7 (999) 123-45-67</p>
-            </div>
-            <div class="mb-4">
-                <h5 class="fw-semibold">Email:</h5>
-                <p class="text-muted">info@shopfront.ru</p>
-            </div>
-            <div>
-                <h5 class="fw-semibold">Режим работы:</h5>
-                <p class="text-muted">Пн-Пт: 9:00-18:00<br>Сб-Вс: 10:00-16:00</p>
+            {% endif %}
+
+            <div class="contact-list">
+                {% for contact in contacts %}
+                <div class="contact-item card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="contact-icon me-3">
+                                <i class="bi
+                                    {% if contact.icon %}{{ contact.icon }}
+                                    {% elif contact.contact_type == 'phone' %}bi-telephone
+                                    {% elif contact.contact_type == 'email' %}bi-envelope
+                                    {% elif contact.contact_type == 'whatsapp' %}bi-whatsapp
+                                    {% elif contact.contact_type == 'telegram' %}bi-telegram
+                                    {% else %}bi-info-circle{% endif %}
+                                    fs-5 text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-semibold mb-1 text-dark">
+                                    {% if contact.contact_type == 'phone' %}Телефон
+                                    {% elif contact.contact_type == 'email' %}Email
+                                    {% elif contact.contact_type == 'whatsapp' %}WhatsApp
+                                    {% elif contact.contact_type == 'telegram' %}Telegram
+                                    {% elif contact.contact_type == 'address' %}Адрес
+                                    {% else %}{{ contact.contact_type }}{% endif %}
+                                </h6>
+                                <p class="mb-1 text-dark fs-6">{{ contact.value }}</p>
+                                {% if contact.description %}
+                                <p class="text-muted small mb-0">{{ contact.description }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Контактная информация пока не добавлена.
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
