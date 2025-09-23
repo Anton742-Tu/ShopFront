@@ -85,9 +85,9 @@ def category_page(request):
     return render(request, "category.html")
 
 
-def product_detail(request, product_id):
+def product_detail(request, pk):
     """Страница с подробной информацией о товаре"""
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, pk=pk)
 
     # Выводим в консоль для отладки
     print(f"\nПросмотр товара: {product.name} (ID: {product.id})")
