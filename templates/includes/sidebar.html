@@ -1,4 +1,3 @@
-<!-- Папка для включений -->
 {% load static %}
 
 <aside class="col-2 bg-dark text-white p-4 d-flex flex-column justify-content-between">
@@ -8,14 +7,14 @@
         <!-- Логотип -->
         <div class="text-center mb-4">
             <h4 class="text-white mb-0">🛍️ ShopFront</h4>
-            <small class="text-muted">Интернет-магазин</small>
+            <small class="text-white">Интернет-магазин</small>
         </div>
 
         <!-- Разделитель -->
         <hr class="text-muted my-4">
 
         <!-- Навигационное меню -->
-        <h5 class="text-muted small text-uppercase mb-3">Меню</h5>
+        <h5 class="text-white small text-uppercase mb-3">Меню</h5>
         <ul class="nav nav-pills flex-column">
             <li class="nav-item mb-2">
                 <a href="{% url 'home' %}" class="nav-link text-white-50 {% if request.path == '/' %}active{% endif %}" id="menu-home">

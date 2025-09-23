@@ -93,15 +93,25 @@ def handle_form_submission(request):
 
 
 def catalog_page(request):
-    """Страница каталога - все товары"""
+    """Страница каталога - все товары с пагинацией"""
     all_products = Product.objects.all()
 
+    # Пагинация - 8 товаров на страницу
+    paginator = Paginator(all_products, 8)
+    page_number = request.GET.get('page', 1)
+
+    try:
+        products = paginator.page(page_number)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
     context = {
-        "products": all_products,
-        "page_title": "Все товары",
-        "show_filters": True,  # Флаг для показа фильтров в шаблоне
+        'products': products,
+        'page_title': 'Каталог товаров'
     }
-    return render(request, "catalog.html", context)
+    return render(request, 'catalog.html', context)
 
 
 def category_page(request):
