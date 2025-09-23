@@ -9,4 +9,5 @@ urlpatterns = [
     path('contacts/', views.contacts_page, name='contacts'),
     path('submit-form/', views.handle_form_submission, name='submit_form'),
     path('product/<int:pk>/', views.product_detail, name='product_detail'),
+    path('product/add/', views.add_product, name='add_product'),
 ]

@@ -1,21 +1,51 @@
 from django.shortcuts import render, get_object_or_404
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from .models import Contact, Product
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .forms import ProductForm
+
+
+def add_product(request):
+    """Страница добавления нового товара"""
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            messages.success(request, f'Товар "{product.name}" успешно добавлен!')
+            return redirect('product_detail', product_id=product.id)
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
+    else:
+        form = ProductForm()
+
+    context = {
+        'form': form,
+        'page_title': 'Добавить товар'
+    }
+    return render(request, 'catalog/add_product.html', context)
 
 
 def home_page(request):
-    """Главная страница - последние 6 товаров"""
-    latest_products = Product.objects.order_by('-created_at')[:6]
+    """Главная страница с пагинацией"""
+    # Получаем все товары (или можно оставить только последние)
+    all_products = Product.objects.order_by('-created_at')
 
-    # Выводим в консоль
-    print("\n" + "=" * 50)
-    print("ПОСЛЕДНИЕ 6 ПРОДУКТОВ ДЛЯ ГЛАВНОЙ:")
-    for product in latest_products:
-        print(f"- {product.name} - {product.price} руб.")
-    print("=" * 50 + "\n")
+    # Настраиваем пагинацию - 6 товаров на страницу
+    paginator = Paginator(all_products, 6)
+    page_number = request.GET.get('page', 1)
+
+    try:
+        products = paginator.page(page_number)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
 
     context = {
-        'products': latest_products,
+        'products': products,
         'page_title': 'Новинки'
     }
     return render(request, 'index.html', context)
