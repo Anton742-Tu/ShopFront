@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Блог - ShopFront{% endblock %}
+
+{% block page_title %}
+<h1 class="display-5 text-center fw-bold mb-2">Наш блог</h1>
+<p class="text-center text-muted">Полезные статьи и новости</p>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% for post in posts %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            {% if post.preview_image %}
+            <img src="{{ post.preview_image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+            </div>
+            {% endif %}
+            
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text text-muted small">{{ post.content|truncatewords:30 }}</p>
+                
+                <div class="mt-auto">
+                    <div class="d-flex justify-content-between align-items-center text-muted small">
+                        <span>{{ post.created_at|date:"d.m.Y" }}</span>
+                        <span><i class="bi bi-eye me-1"></i>{{ post.views_count }}</span>
+                    </div>
+                    <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-outline-primary btn-sm w-100 mt-2">
+                        Читать далее
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <i class="bi bi-info-circle me-2"></i>
+            Пока нет опубликованных записей в блоге.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block pagination %}
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation" class="mt-5">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        </li>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}
