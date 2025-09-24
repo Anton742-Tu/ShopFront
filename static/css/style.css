@@ -24,6 +24,11 @@ aside.bg-dark {
     color: #fff !important;
 }
 
+.nav-pills .nav-link.active:hover {
+    background-color: #2b50b7 !important;
+    color: #fff !important;
+}
+
 /* Иконки */
 .nav-pills .nav-link.active i {
     color: #fff !important;

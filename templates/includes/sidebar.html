@@ -13,30 +13,30 @@
         <hr class="text-muted my-4">
 
         <!-- Навигационное меню -->
-        <h5 class="text-white small text-uppercase mb-3">Меню</h5>
+        <h5 class="text-muted small text-uppercase mb-3">Меню</h5>
         <ul class="nav nav-pills flex-column">
             <li class="nav-item mb-2">
-                <a href="{% url 'home' %}" class="nav-link {% if request.path == '/' %}active{% else %}text-white-50{% endif %}">
+                <a href="{% url 'home' %}" class="nav-link text-white-50 {% if request.path == '/' %}active{% endif %}" id="menu-home">
                     <i class="bi bi-house me-2"></i>Главная
                 </a>
             </li>
             <li class="nav-item mb-2">
-                <a href="{% url 'catalog' %}" class="nav-link {% if request.path == '/catalog/' %}active{% else %}text-white-50{% endif %}">
+                <a href="{% url 'catalog' %}" class="nav-link text-white-50 {% if request.path == '/catalog/' %}active{% endif %}" id="menu-catalog">
                     <i class="bi bi-grid me-2"></i>Каталог
                 </a>
             </li>
             <li class="nav-item mb-2">
-                <a href="{% url 'add_product' %}" class="nav-link {% if request.path == '/product/add/' %}active{% else %}text-white-50{% endif %}">
+                <a href="{% url 'add_product' %}" class="nav-link text-white-50 {% if request.path == '/product/add/' %}active{% endif %}" id="menu-add_product">
                     <i class="bi bi-plus-circle me-2"></i>Добавить товар
                 </a>
             </li>
             <li class="nav-item mb-2">
-                <a href="{% url 'category' %}" class="nav-link {% if request.path == '/category/' %}active{% else %}text-white-50{% endif %}">
+                <a href="{% url 'category' %}" class="nav-link text-white-50 {% if request.path == '/category/' %}active{% endif %}" id="menu-category">
                     <i class="bi bi-tags me-2"></i>Категории
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'contacts' %}" class="nav-link {% if request.path == '/contacts/' %}active{% else %}text-white-50{% endif %}">
+                <a href="{% url 'contacts' %}" class="nav-link text-white-50 {% if request.path == '/contacts/' %}active{% endif %}" id="menu-contacts">
                     <i class="bi bi-telephone me-2"></i>Контакты
                 </a>
             </li>
