@@ -13,33 +13,46 @@
         <hr class="text-muted my-4">
 
         <!-- Навигационное меню -->
-        <h5 class="text-muted small text-uppercase mb-3">Меню</h5>
+        <h5 class="text-white small text-uppercase mb-3">Меню</h5>
         <ul class="nav nav-pills flex-column">
             <li class="nav-item mb-2">
                 <a href="{% url 'home' %}" class="nav-link text-white-50 {% if request.path == '/' in request.path %}active{% endif %}">
                     <i class="bi bi-house me-2"></i>Главная
                 </a>
             </li>
+
             <li class="nav-item mb-2">
                 <a href="{% url 'catalog' %}" class="nav-link text-white-50 {% if request.path == '/catalog/' in request.path %}active{% endif %}">
                     <i class="bi bi-grid me-2"></i>Каталог
                 </a>
             </li>
+
             <li class="nav-item mb-2">
                 <a href="{% url 'add_product' %}" class="nav-link text-white-50 {% if request.path == '/product/add/' in request.path %}active{% endif %}">
                     <i class="bi bi-plus-circle me-2"></i>Добавить товар
                 </a>
             </li>
+
             <li class="nav-item mb-2">
                 <a href="{% url 'category' %}" class="nav-link text-white-50 {% if request.path == '/category/' in request.path %}active{% endif %}">
                     <i class="bi bi-tags me-2"></i>Категории
                 </a>
             </li>
+
             <li class="nav-item mb-2">
-                <a href="{% url 'blog:post_list' %}" class="nav-link text-white-50 {% if '/blog/' in request.path %}active{% endif %}">
+                <a href="{% url 'blog:post_list' %}" class="nav-link text-white-50 {% if request.path == '/blog/' in request.path %}active{% endif %}">
                     <i class="bi bi-journal-text me-2"></i>Блог
                 </a>
             </li>
+
+            {% if user.is_staff %}
+            <li class="nav-item mb-2">
+                <a href="{% url 'blog:post_manage' %}" class="nav-link text-white-50 {% if request.path == '/blog/manage/' %}active{% endif %}">
+                    <i class="bi bi-gear me-2"></i>Управление блогом
+                </a>
+            </li>
+            {% endif %}
+
             <li class="nav-item">
                 <a href="{% url 'contacts' %}" class="nav-link text-white-50 {% if request.path == '/contacts/' in request.path %}active{% endif %}">
                     <i class="bi bi-telephone me-2"></i>Контакты

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if object %}Редактирование {{ object.title }}{% else %}Новая запись в блоге{% endif %} - ShopFront
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-pencil-square me-2"></i>
+                        {% if object %}Редактирование записи{% else %}Создание новой записи{% endif %}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Вы уверены, что хотите удалить запись?</p>
+                    <div class="alert alert-warning">
+                        <strong>"{{ object.title }}"</strong>
+                        <br>
+                        <small class="text-muted">Создана: {{ object.created_at|date:"d.m.Y H:i" }}</small>
+                    </div>
+                    
+                    <p class="text-muted">Это действие нельзя будет отменить.</p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash me-2"></i>Да, удалить
+                            </button>
+                            <a href="{% url 'blog:post_detail' object.slug %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle me-2"></i>Отмена
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

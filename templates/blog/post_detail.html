@@ -16,30 +16,12 @@
     <article class="blog-post">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <h1 class="display-6 fw-bold mb-3">{{ post.title }}</h1>
-                
-                <div class="d-flex justify-content-between align-items-center text-muted mb-4">
-                    <span><i class="bi bi-calendar me-1"></i>{{ post.created_at|date:"d.m.Y H:i" }}</span>
-                    <span><i class="bi bi-eye me-1"></i>{{ post.views_count }} просмотров</span>
-                </div>
-
-                {% if post.preview_image %}
+                <!-- Заголовок с кнопками управления -->
                 <div class="text-center mb-4">
-                    <img src="{{ post.preview_image.url }}" alt="{{ post.title }}" class="img-fluid rounded" style="max-height: 400px;">
-                </div>
-                {% endif %}
+                    <h1 class="display-6 fw-bold mb-3">{{ post.title }}</h1>
 
-                <div class="blog-content">
-                    {{ post.content|linebreaks }}
-                </div>
-
-                <div class="mt-5 pt-4 border-top">
-                    <a href="{% url 'blog:post_list' %}" class="btn btn-outline-primary">
-                        <i class="bi bi-arrow-left me-2"></i>Назад к блогу
-                    </a>
-                    
                     {% if user.is_staff %}
-                    <div class="btn-group ms-2">
+                    <div class="btn-group mb-3">
                         <a href="{% url 'blog:post_update' post.slug %}" class="btn btn-outline-secondary btn-sm">
                             <i class="bi bi-pencil me-1"></i>Редактировать
                         </a>
@@ -47,6 +29,43 @@
                             <i class="bi bi-trash me-1"></i>Удалить
                         </a>
                     </div>
+                    {% endif %}
+
+                    <!-- Информация о записи -->
+                    <div class="d-flex justify-content-center align-items-center text-muted">
+                        <span class="me-3"><i class="bi bi-calendar me-1"></i>{{ post.created_at|date:"d.m.Y H:i" }}</span>
+                        <span><i class="bi bi-eye me-1"></i>{{ post.views_count }} просмотров</span>
+                        {% if not post.is_published %}
+                        <span class="badge bg-warning text-dark ms-3">Черновик</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Превью изображение -->
+                {% if post.preview_image %}
+                <div class="text-center mb-4">
+                    <img src="{{ post.preview_image.url }}" alt="{{ post.title }}" class="img-fluid rounded" style="max-height: 400px;">
+                </div>
+                {% endif %}
+
+                <!-- Содержимое -->
+                <div class="blog-content">
+                    {{ post.content|linebreaks }}
+                </div>
+
+                <!-- Кнопки действий -->
+                <div class="mt-5 pt-4 border-top">
+                    <a href="{% url 'blog:post_list' %}" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left me-2"></i>Назад к блогу
+                    </a>
+
+                    {% if user.is_staff %}
+                    <a href="{% url 'blog:post_create' %}" class="btn btn-outline-success ms-2">
+                        <i class="bi bi-plus-circle me-2"></i>Новая запись
+                    </a>
+                    <a href="{% url 'blog:post_manage' %}" class="btn btn-outline-info ms-2">
+                        <i class="bi bi-gear me-2"></i>Управление
+                    </a>
                     {% endif %}
                 </div>
             </div>
