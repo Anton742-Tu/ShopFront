@@ -156,13 +156,16 @@ python manage.py createsuperuser
 ```bash
 # Создание миграций при изменении моделей
 python manage.py makemigrations
-
+```
+```bash
 # Применение миграций
 python manage.py migrate
-
+```
+```bash
 # Запуск тестов
 python manage.py test
-
+```
+```bash
 # Сбор статических файлов
 python manage.py collectstatic
 ```
