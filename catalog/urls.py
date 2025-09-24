@@ -1,13 +1,23 @@
 from django.urls import path
-
-from . import views
+from .views import (
+    HomePageView,
+    ProductDetailView,
+    CatalogListView,
+    ProductCreateView,
+    ContactsView,
+    handle_form_submission,
+    CategoryView
+)
 
 urlpatterns = [
-    path('', views.home_page, name='home'),
-    path('catalog/', views.catalog_page, name='catalog'),
-    path('category/', views.category_page, name='category'),
-    path('contacts/', views.contacts_page, name='contacts'),
-    path('submit-form/', views.handle_form_submission, name='submit_form'),
-    path('product/<int:pk>/', views.product_detail, name='product_detail'),
-    path('product/add/', views.add_product, name='add_product'),
+    # Class-Based Views
+    path('', HomePageView.as_view(), name='home'),
+    path('catalog/', CatalogListView.as_view(), name='catalog'),
+    path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
+    path('product/add/', ProductCreateView.as_view(), name='add_product'),
+    path('contacts/', ContactsView.as_view(), name='contacts'),
+    path('category/', CategoryView.as_view(), name='category'),
+
+    # Function-Based View (оставляем для формы)
+    path('submit-form/', handle_form_submission, name='submit_form'),
 ]
