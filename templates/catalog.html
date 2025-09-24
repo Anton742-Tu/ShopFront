@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Каталог товаров - ShopFront{% endblock %}
+
+{% block page_title %}
+<div class="text-center mb-4">
+    <h1 class="display-5 fw-bold mb-2">Каталог товаров</h1>
+    <span class="badge bg-primary fs-6">Всего: {{ products.count }} товаров</span>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<!-- Сетка товаров -->
+<div class="row">
+    {% for product in products %}
+    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <!-- Изображение товара -->
+            <div class="text-center p-3" style="background-color: #f8f9fa; min-height: 200px;">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                     class="img-fluid" style="max-height: 150px; object-fit: contain;">
+                {% else %}
+                <div class="d-flex align-items-center justify-content-center h-100">
+                    <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Тело карточки -->
+            <div class="card-body d-flex flex-column">
+                <!-- Название -->
+                <h6 class="card-title fw-bold">{{ product.name }}</h6>
+
+                <!-- Описание -->
+                <p class="card-text text-muted small mb-2 flex-grow-1">
+                    {{ product.description|truncatechars:80|default:"Описание отсутствует" }}
+                </p>
+
+                <!-- Категория -->
+                {% if product.category %}
+                <span class="badge bg-secondary mb-2 align-self-start">{{ product.category.name }}</span>
+                {% endif %}
+
+                <!-- Цена и кнопка -->
+                <div class="mt-auto">
+                    <p class="card-text text-success fw-bold h5 mb-3">{{ product.price }} руб.</p>
+
+                    <div class="d-grid gap-1">
+                        <a href="{% url 'product_detail' pk=product.id %}" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-eye me-1"></i>Подробнее
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-warning text-center py-5">
+            <div class="mb-3">
+                <i class="bi bi-inbox" style="font-size: 3rem;"></i>
+            </div>
+            <h4>😔 Товары не найдены</h4>
+            <p class="mb-3">Пока нет товаров в каталоге.</p>
+            <a href="{% url 'add_product' %}" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-1"></i>Добавить первый товар
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block pagination %}
+
+{% if products.paginator.num_pages > 1 %}
+<nav aria-label="Page navigation" class="mt-5">
+    <ul class="pagination justify-content-center">
+        <!-- Кнопка "Назад" -->
+        {% if products.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">&laquo;</span>
+        </li>
+        {% endif %}
+
+        <!-- Номера страниц -->
+        {% for num in products.paginator.page_range %}
+            {% if products.number == num %}
+            <li class="page-item active">
+                <span class="page-link">{{ num }}</span>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Кнопка "Вперед" -->
+        {% if products.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">&raquo;</span>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

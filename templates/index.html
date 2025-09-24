@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная - ShopFront{% endblock %}
+
+{% block page_title %}
+<h1 class="display-5 text-center fw-bold mb-2">Главная</h1>
+{% endblock %}
+
+{% block content %}
+<!-- Герой-секция -->
+<div class="hero-section bg-light rounded p-2 mb-3 text-center">
+    <h2 class="mb-1">🛍️ Добро пожаловать в ShopFront!</h2>
+</div>
+
+<!-- Новинки -->
+<div class="mb-5">
+    <h3 class="mb-4">🆕 Новинки</h3>
+
+    <!-- Информация о странице -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <p class="text-muted mb-0">
+            Страница {{ products.number }} из {{ products.paginator.num_pages }}
+            (всего {{ products.paginator.count }} товаров)
+        </p>
+    </div>
+
+    <div class="row gap-4 justify-content-center">
+        {% for product in products %}
+        <div class="col-lg-3 col-md-6 mb-4">
+            {% include 'includes/product_card.html' %}
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <i class="bi bi-info-circle me-2"></i>
+                Пока нет товаров. <a href="{% url 'add_product' %}" class="alert-link">Добавьте первый товар!</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block pagination %}
+{% if products.paginator.num_pages > 1 %}
+<nav aria-label="Page navigation" class="mt-5">
+    <ul class="pagination justify-content-center">
+        <!-- Кнопка "Назад" -->
+        {% if products.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">&laquo;</span>
+        </li>
+        {% endif %}
+
+        <!-- Номера страниц -->
+        {% for num in products.paginator.page_range %}
+            {% if products.number == num %}
+            <li class="page-item active">
+                <span class="page-link">{{ num }}</span>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Кнопка "Вперед" -->
+        {% if products.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">&raquo;</span>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,108 @@
+/* ===== САЙДБАР ===== */
+aside.bg-dark {
+    background-color: #1a1d20;
+    border-right: 1px solid #2c3034;
+}
+
+/* ===== АКТИВНЫЕ ССЫЛКИ МЕНЮ ===== */
+.nav-pills .nav-link {
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    transition: all 0.3s ease;
+    margin: 2px 0;
+    color: #adb5bd !important;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #3563e9 !important;
+    color: #fff !important;
+    font-weight: 500;
+}
+
+.nav-pills .nav-link:hover:not(.active) {
+    background-color: #2c3034;
+    color: #fff !important;
+}
+
+/* Иконки */
+.nav-pills .nav-link.active i {
+    color: #fff !important;
+}
+
+.nav-pills .nav-link:not(.active) i {
+    color: #adb5bd !important;
+}
+
+.nav-pills .nav-link:hover i {
+    color: #fff !important;
+}
+
+/* ===== КАРТОЧКИ ===== */
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header-custom {
+    background-color: #6c757d;
+    color: white;
+    border-bottom: 1px solid #5a6268;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+}
+
+/* ===== КОНТАКТЫ ===== */
+.contact-item {
+    transition: transform 0.2s ease;
+    border-left: 4px solid #0d6efd;
+}
+
+.contact-item:hover {
+    transform: translateX(5px);
+}
+
+.contact-icon {
+    width: 45px;
+    height: 45px;
+    background: rgba(13, 110, 253, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    background: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== ПАГИНАЦИЯ ===== */
+.pagination .page-link {
+    color: #0d6efd;
+    border: 1px solid #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.pagination .page-link:hover {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
