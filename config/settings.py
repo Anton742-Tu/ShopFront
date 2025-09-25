@@ -94,6 +94,22 @@ DATABASES = {
 }
 
 
+# Настройки email (для примера - Gmail)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "Tumashovster@gmail.com"
+EMAIL_HOST_PASSWORD = "koyu kjqv rzsg qpdu"  # Пароль приложения
+
+# Email отправителя
+DEFAULT_FROM_EMAIL = "Tumashovster@gmail.com"
+SERVER_EMAIL = "Tumashovster@gmail.com"
+
+# Email для уведомлений (куда отправлять поздравление)
+ADMIN_EMAIL = "Tumashovster@gmail.com"  # Можно указать тот же email
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

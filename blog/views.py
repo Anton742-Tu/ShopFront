@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -25,6 +27,38 @@ class BlogPostListView(ListView):
         return BlogPost.objects.filter(is_published=True).order_by("-created_at")
 
 
+def send_congratulation_email(blog_post):
+    """Отправляет поздравление при достижении 100 просмотров"""
+    if blog_post.views_count == 100:
+        subject = f'🎉 Поздравление! Запись "{blog_post.title}" достигла 100 просмотров!'
+
+        message = f"""
+        Поздравляем! Ваша запись в блоге достигла значимого рубежа!
+
+        Детали записи:
+        - Заголовок: {blog_post.title}
+        - Просмотров: {blog_post.views_count}
+        - Дата создания: {blog_post.created_at.strftime('%d.%m.%Y %H:%M')}
+        - Ссылка: http://127.0.0.1:8000{blog_post.get_absolute_url()}
+
+        Продолжайте в том же духе! 🚀
+        """
+
+        try:
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.ADMIN_EMAIL],
+                fail_silently=False,
+            )
+            print(f"✅ Email отправлен для записи: {blog_post.title}")
+
+        except Exception as e:
+            print(f"❌ Ошибка отправки email: {e}")
+            print("💡 Совет: Проверь настройки EMAIL_* в settings.py")
+
+
 class BlogPostDetailView(DetailView):
     model = BlogPost
     template_name = "blog/post_detail.html"
@@ -32,14 +66,22 @@ class BlogPostDetailView(DetailView):
     slug_url_kwarg = "slug"
 
     def get_object(self, queryset=None):
-        """Увеличение счетчика просмотров при открытии статьи"""
+        """Увеличение счетчика просмотров и проверка на 100 просмотров"""
         obj = super().get_object(queryset)
+
+        # Сохраняем предыдущее значение счетчика
+        old_views_count = obj.views_count
 
         # Увеличиваем счетчик просмотров атомарно
         BlogPost.objects.filter(pk=obj.pk).update(views_count=F("views_count") + 1)
 
         # Обновляем объект для отображения актуального счетчика
         obj.refresh_from_db()
+
+        # Проверяем, достигли ли мы 100 просмотров
+        if old_views_count == 99 and obj.views_count == 100:
+            send_congratulation_email(obj)
+
         return obj
 
 
