@@ -29,7 +29,9 @@ class BlogPost(models.Model):
     is_published = models.BooleanField(default=False, verbose_name="Опубликовано")
 
     views_count = models.PositiveIntegerField(
-        default=0, verbose_name="Количество просмотров"
+        default=0,
+        verbose_name='Количество просмотров',
+        editable=False  # ← ЗАПРЕТ РУЧНОГО РЕДАКТИРОВАНИЯ
     )
 
     slug = models.SlugField(

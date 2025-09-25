@@ -100,7 +100,7 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "Tumashovster@gmail.com"
-EMAIL_HOST_PASSWORD = "koyu kjqv rzsg qpdu"  # Пароль приложения
+EMAIL_HOST_PASSWORD = ".... .... .... ...."  # Пароль приложения
 
 # Email отправителя
 DEFAULT_FROM_EMAIL = "Tumashovster@gmail.com"
